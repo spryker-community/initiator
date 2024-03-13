@@ -1,6 +1,6 @@
 <?php
 
-namespace Pyz\Zed\Store\Communication\Console;
+namespace initiator\Zed\Store\Communication\Console;
 
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Kernel\Communication\Console\Console;
