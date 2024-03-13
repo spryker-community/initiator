@@ -1,0 +1,14 @@
+{
+    "name": "spryker-community/initiator",
+    "description": "Injects CSS/JS in HTML templates, based on the generated Webpack manifest.json",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Initiator\\": "src/initiator/"
+        }
+    }
+}
+
