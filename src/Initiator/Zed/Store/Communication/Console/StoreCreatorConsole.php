@@ -1,10 +1,12 @@
 <?php
 
-namespace initiator\Zed\Store\Communication\Console;
+namespace Initiator\Zed\Store\Communication\Console;
 
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Kernel\Communication\Console\Console;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -27,6 +29,12 @@ class StoreCreatorConsole extends Console
     {
         $this->setName(static::COMMAND_NAME);
         $this->setDescription(static::DESCRIPTION);
+        $this->addArgument('store_name', InputArgument::REQUIRED, 'Enter a store-name in upper-case like: "DE"');
+        $this->addArgument('default_locale_iso_code', InputArgument::REQUIRED, 'Enter a default country iso-code to use like: "de_DE"');
+        $this->addArgument('currency_iso_code', InputArgument::REQUIRED, 'Enter a currency iso code in upper-case like: "EUR"');
+        $this->addOption('countries', 'c', InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Enter a countries to use like: "--c DE --c AT"');
+        $this->addOption('available_currency_iso_codes', 'acic', InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Enter a countries to use like: "--acic EUR --acic CHF"');
+        $this->addOption('available_locale_iso_codes', 'alic', InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Enter a countries to use like: "--alic de_DE --alic de_AT"');
 
         parent::configure();
     }

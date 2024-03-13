@@ -24,8 +24,7 @@ Put in demoshop composer json:
 
 Then run:
 ```bash
-docker/sdk cli composer i
-docker/sdk cli composer update
+docker/sdk cli composer require --dev spryker-community/initiator
 ```
 
 Then put in config_default.php:
