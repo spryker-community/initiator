@@ -152,9 +152,13 @@ class StoreCreator
                 ],
             ]
         ];
+        $projectNamespace = 'My_Initiator';
         $this->fileFromTwigBuilder->generateTextFile(
             'deploy.dev.dynamic-store.yml.twig',
-            ['regions' => $regions],
+            [
+                'regions' => $regions,
+                'namespace' => $projectNamespace,
+            ],
             'deploy.dev.dynamic-store.yml'
         );
     }
