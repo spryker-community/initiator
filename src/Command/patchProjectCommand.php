@@ -26,8 +26,8 @@ class patchProjectCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $wizardConfig =  [
-            'sprykerDemoShopPath' => $input->getArgument('sprykerPath'),
-            'generatedPath' => 'generated' . DIRECTORY_SEPARATOR,
+            'sprykerDemoShopPath' => $input->getArgument('sprykerPath') . DIRECTORY_SEPARATOR,
+            'generatedPath' => 'generated_old' . DIRECTORY_SEPARATOR,
         ];
 
         $directory = new \RecursiveDirectoryIterator($wizardConfig['generatedPath']);
