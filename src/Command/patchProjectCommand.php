@@ -2,8 +2,6 @@
 
 namespace App\Command;
 
-require_once dirname(__DIR__).'/../config/config.php';
-
 use SplFileInfo;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -30,6 +28,7 @@ class patchProjectCommand extends Command
 
         $directory = new \RecursiveDirectoryIterator($wizardConfig['generatedPath']);
         $iterator = new \RecursiveIteratorIterator($directory);
+        $fileSystem = new Filesystem();
         /** @var SplFileInfo $info */
         foreach ($iterator as $info) {
             if(in_array($info->getFilename(), ['.gitignore', '.', '..'])){
@@ -38,7 +37,7 @@ class patchProjectCommand extends Command
 
             $oldPath = $info->getPathname();
             $newPath = str_replace($wizardConfig['generatedPath'], $wizardConfig['sprykerDemoShopPath'], $info->getPathname());
-            rename($oldPath, $newPath);
+            $fileSystem->copy($oldPath, $newPath, true);
         }
 
         $output->writeln('Patching done');
