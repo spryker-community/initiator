@@ -1,41 +1,21 @@
-# initiator
-Run:
-```bash
-mkdir spryker-community
-cd spryker-community
-git clone git@github.com:spryker-community/initiator.git ./initiator
+# Spryker Initiator
 
-```
+Clone the current demo shop into any folder on your machine
 
-Put in demoshop composer json:
+Then create and adjust the config file based on the project.json file
 
-```json
-"repositories": [
-    {
-    "type": "git",
-    "url": "https://github.com/spryker/robotframework-suite-tests.git"
-    },
-    {
-    "type": "path",
-    "url": "spryker-community/initiator"
-    }
-],
-```
+Then use this project with the following commands
 
-Then run:
-```bash
-docker/sdk cli composer require --dev spryker-community/initiator
-```
-
-Then put in config_default.php:
 ```php
-$config[KernelConstants::PROJECT_NAMESPACES] = [
-    'Pyz',
-    'Initiator'
-];
+bin/console app:create-store
 ```
 
-Then put in Zed ConsoleDependencyProvider at the right place:
+After the files have been created you can check them in the generated folder
+
+Then you run the following command to patch the demo shop
+
 ```php
-new StoreCreatorConsole(),
+bin/console app:patch-project ~/PhpStormProjects/B2B-demo-202311
 ```
+
+Afterwards your adjusted demo shop is ready and can be bootstraped and started
