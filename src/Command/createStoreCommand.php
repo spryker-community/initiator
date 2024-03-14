@@ -6,8 +6,14 @@ use App\Logic\StoreCreator;
 use App\Model\FileFromTwigBuilder;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Yaml\Yaml;
 
 #[AsCommand(
     name: 'app:create-store',
@@ -24,27 +30,27 @@ class createStoreCommand extends Command
         parent::__construct($name);
     }
 
+    protected function configure()
+    {
+        $this->addArgument('configPath', InputArgument::OPTIONAL, 'Configuration file path', 'project.json');
+        parent::configure();
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->storeCreator->createDeployFile();
-        $this->storeCreator->createDemodata();
-        $this->storeCreator->createInstallFiles();
+        $configAsJson = file_get_contents($input->getArgument('configPath'));
+        $configAsArray = json_decode($configAsJson, true);
+        $helper = $this->getHelper('question');
+        $question = new ConfirmationQuestion('Delete generated directory before creating new files?', true);
 
-        // ... put here the code to create the user
+        if ($helper->ask($input, $output, $question)) {
+            $fileSystem = new Filesystem();
+            $fileSystem->remove('generated');
+        }
+        $this->storeCreator->createDeployFile($configAsArray);
+        $this->storeCreator->createDemodata($configAsArray);
+        $this->storeCreator->createInstallFiles($configAsArray);
 
-        // this method must return an integer number with the "exit status code"
-        // of the command. You can also use these constants to make code more readable
-
-        // return this if there was no problem running the command
-        // (it's equivalent to returning int(0))
         return Command::SUCCESS;
-
-        // or return this if some error happened during the execution
-        // (it's equivalent to returning int(1))
-        // return Command::FAILURE;
-
-        // or return this to indicate incorrect command usage; e.g. invalid options
-        // or missing arguments (it's equivalent to returning int(2))
-        // return Command::INVALID
     }
 }

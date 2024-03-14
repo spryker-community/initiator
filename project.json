@@ -1,0 +1,35 @@
+{
+  "namespace": "My_Initiator",
+  "regions": {
+    "EU": {
+      "regionName": "EU",
+      "stores": {
+        "DE": {
+          "storeName": "DE"
+        },
+        "EN": {
+          "storeName": "EN"
+        }
+      }
+    },
+    "US": {
+      "regionName": "US",
+      "stores": {
+        "EN": {
+          "storeName": "EN"
+        },
+        "TXS": {
+          "storeName": "TXS"
+        }
+      }
+    },
+    "PL": {
+      "regionName": "PL",
+      "stores": {
+        "PL": {
+          "storeName": "PL"
+        }
+      }
+    }
+  }
+}

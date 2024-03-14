@@ -13,39 +13,8 @@ class StoreCreator
         $this->fileFromTwigBuilder = $fileFromTwigBuilder;
     }
 
-    public function createInstallFiles() {
-        $regions = [
-            'EU' => [
-                'regionName' => 'EU',
-                'stores' => [
-                    'DE' => [
-                        'storeName' => 'DE'
-                    ],
-                    'EN' => [
-                        'storeName' => 'EN'
-                    ],
-                ],
-            ],
-            'US' => [
-                'regionName' => 'US',
-                'stores' => [
-                    'EN' => [
-                        'storeName' => 'EN'
-                    ],
-                    'TXS' => [
-                        'storeName' => 'TXS'
-                    ],
-                ],
-            ],
-            'PL' => [
-                'regionName' => 'PL',
-                'stores' => [
-                    'PL' => [
-                        'storeName' => 'PL'
-                    ],
-                ],
-            ]
-        ];
+    public function createInstallFiles(array $config) {
+        $regions = $config['regions'];
         $filesystem = new Filesystem();
         foreach ($regions as $region) {
             $filesystem->mkdir('generated/config/install/' . $region['regionName']);
@@ -67,39 +36,8 @@ class StoreCreator
         }
     }
 
-    public function createDemodata() {
-        $regions = [
-            'EU' => [
-                'regionName' => 'EU',
-                'stores' => [
-                    'DE' => [
-                        'storeName' => 'DE'
-                    ],
-                    'EN' => [
-                        'storeName' => 'EN'
-                    ],
-                ],
-            ],
-            'US' => [
-                'regionName' => 'US',
-                'stores' => [
-                    'EN' => [
-                        'storeName' => 'EN'
-                    ],
-                    'TXS' => [
-                        'storeName' => 'TXS'
-                    ],
-                ],
-            ],
-            'PL' => [
-                'regionName' => 'PL',
-                'stores' => [
-                    'PL' => [
-                        'storeName' => 'PL'
-                    ],
-                ],
-            ]
-        ];
+    public function createDemodata(array $config) {
+        $regions = $config['regions'];
         $filesystem = new Filesystem();
         foreach ($regions as $region) {
             $filesystem->mkdir('generated/data/import/local');
@@ -119,51 +57,15 @@ class StoreCreator
         }
     }
 
-    public function createDeployFile() {
-        $regions = [
-            'EU' => [
-                'regionName' => 'EU',
-                'stores' => [
-                    'DE' => [
-                        'storeName' => 'DE'
-                    ],
-                    'EN' => [
-                        'storeName' => 'EN'
-                    ],
-                ],
-            ],
-            'US' => [
-                'regionName' => 'US',
-                'stores' => [
-                    'EN' => [
-                        'storeName' => 'EN'
-                    ],
-                    'TXS' => [
-                        'storeName' => 'TXS'
-                    ],
-                ],
-            ],
-            'PL' => [
-                'regionName' => 'PL',
-                [
-                    'PL' => [
-                        'storeName' => 'PL'
-                    ],
-                ],
-            ]
-        ];
-        $projectNamespace = 'My_Initiator';
+    public function createDeployFile(array $config) {
         $this->fileFromTwigBuilder->generateTextFile(
             'deploy.dev.dynamic-store.yml.twig',
-            [
-                'regions' => $regions,
-                'namespace' => $projectNamespace,
-            ],
+            $config,
             'deploy.dev.dynamic-store.yml'
         );
     }
 
-    public function createStorePhpFile() {
+    public function createStorePhpFile(array $config) {
 
     }
 }
