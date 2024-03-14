@@ -4,9 +4,9 @@ env:
 command-timeout: 1200
 
 stores:
-    - DE
-    - AT
-
+{% for store in stores %}
+    - {{ store.storeName }}
+{% endfor %}
 sections:
     clean-oms:
         clear-oms-locks:

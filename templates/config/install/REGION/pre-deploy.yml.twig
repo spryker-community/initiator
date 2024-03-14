@@ -2,7 +2,9 @@ env:
     NEW_RELIC_ENABLED: 0
 
 stores:
-    - DE
+    {% for store in stores %}
+    - {{ store.storeName }}
+    {% endfor %}
 
 sections:
     scheduler-stop:

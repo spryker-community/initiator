@@ -4,25 +4,25 @@ version: 0
 actions:
 #1. Commerce Setup data import
   - data_entity: store
-    source: data/import/common/EU/store.csv
+    source: data/import/common/{{ regionName }}/store.csv
   - data_entity: currency
     source: data/import/common/common/currency.csv
+{% for store in stores %}
   - data_entity: currency-store
-    source: data/import/common/DE/currency_store.csv
-  - data_entity: currency-store
-    source: data/import/common/AT/currency_store.csv
+    source: data/import/common/{{ store.storeName }}/currency_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: country-store
-    source: data/import/common/DE/country_store.csv
-  - data_entity: country-store
-    source: data/import/common/AT/country_store.csv
+    source: data/import/common/{{ store.storeName }}/country_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: locale-store
-    source: data/import/common/DE/locale_store.csv
-  - data_entity: locale-store
-    source: data/import/common/AT/locale_store.csv
+    source: data/import/common/{{ store.storeName }}/locale_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: default-locale-store
-    source: data/import/common/DE/default_locale_store.csv
-  - data_entity: default-locale-store
-    source: data/import/common/AT/default_locale_store.csv
+    source: data/import/common/{{ store.storeName }}/default_locale_store.csv
+{% endfor %}
   - data_entity: customer
     source: data/import/common/common/customer.csv
   - data_entity: glossary
@@ -31,14 +31,14 @@ actions:
     source: data/import/common/common/tax.csv
   - data_entity: shipment
     source: data/import/common/common/shipment.csv
+{% for store in stores %}
   - data_entity: shipment-price
-    source: data/import/common/DE/shipment_price.csv
-  - data_entity: shipment-price
-    source: data/import/common/AT/shipment_price.csv
+    source: data/import/common/{{ store.storeName }}/shipment_price.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: sales-order-threshold
-    source: data/import/common/DE/sales_order_threshold.csv
-  - data_entity: sales-order-threshold
-    source: data/import/common/AT/sales_order_threshold.csv
+    source: data/import/common/{{ store.storeName }}/sales_order_threshold.csv
+{% endfor %}
   - data_entity: stock
     source: data/import/common/common/warehouse.csv
   - data_entity: stock-address
@@ -46,30 +46,29 @@ actions:
   - data_entity: payment-method
     source: data/import/common/common/payment_method.csv
   # Store relation
+{% for store in stores %}
   - data_entity: shipment-method-store
-    source: data/import/common/DE/shipment_method_store.csv
-  - data_entity: shipment-method-store
-    source: data/import/common/AT/shipment_method_store.csv
+    source: data/import/common/{{ store.storeName }}/shipment_method_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: stock-store
-    source: data/import/common/DE/warehouse_store.csv
-  - data_entity: stock-store
-    source: data/import/common/AT/warehouse_store.csv
+    source: data/import/common/{{ store.storeName }}/warehouse_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: payment-method-store
-    source: data/import/common/DE/payment_method_store.csv
-  - data_entity: payment-method-store
-    source: data/import/common/AT/payment_method_store.csv
+    source: data/import/common/{{ store.storeName }}/payment_method_store.csv
+{% endfor %}
   - data_entity: return-reason
-
 
 #2. Catalog Setup data import - Catalog Setup category includes sub-categories: Categories, Products,Pricing, Stocks
   - data_entity: category-template
     source: data/import/common/common/category_template.csv
   - data_entity: category
     source: data/import/common/common/category.csv
+{% for store in stores %}
   - data_entity: category-store
-    source: data/import/common/DE/category_store.csv
-  - data_entity: category-store
-    source: data/import/common/AT/category_store.csv
+    source: data/import/common/{{ store.storeName }}/category_store.csv
+{% endfor %}
   - data_entity: product-attribute-key
     source: data/import/common/common/product_attribute_key.csv
   - data_entity: product-management-attribute
@@ -80,32 +79,31 @@ actions:
     source: data/import/common/common/product_concrete.csv
   - data_entity: product-image
     source: data/import/common/common/product_image.csv
+{% for store in stores %}
   - data_entity: product-price
-    source: data/import/common/DE/product_price.csv
-  - data_entity: product-price
-    source: data/import/common/AT/product_price.csv
+    source: data/import/common/{{ store.storeName }}/product_price.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: product-price-schedule
-    source: data/import/common/DE/product_price_schedule.csv
-  - data_entity: product-price-schedule
-    source: data/import/common/AT/product_price_schedule.csv
+    source: data/import/common/{{ store.storeName }}/product_price_schedule.csv
+{% endfor %}
   - data_entity: product-stock
     source: data/import/common/common/product_stock.csv
   - data_entity: product-configuration
     source: data/import/common/common/product_configuration.csv
   # Store relation
+{% for store in stores %}
   - data_entity: product-abstract-store
-    source: data/import/common/DE/product_abstract_store.csv
-  - data_entity: product-abstract-store
-    source: data/import/common/AT/product_abstract_store.csv
-
+    source: data/import/common/{{ store.storeName }}/product_abstract_store.csv
+{% endfor %}
 
 #3. Special Product Types Setup import - Special Product Types category includes sub-categories: Product Options, Measurements, Product Bundles, Gift Cards
   - data_entity: product-option
     source: data/import/common/common/product_option.csv
+{% for store in stores %}
   - data_entity: product-option-price
-    source: data/import/common/DE/product_option_price.csv
-  - data_entity: product-option-price
-    source: data/import/common/AT/product_option_price.csv
+    source: data/import/common/{{ store.storeName }}/product_option_price.csv
+{% endfor %}
   - data_entity: product-measurement-unit
     source: data/import/common/common/product_measurement_unit.csv
   - data_entity: product-measurement-base-unit
@@ -129,11 +127,10 @@ actions:
   - data_entity: configurable-bundle-template-image
     source: data/import/common/common/configurable_bundle_template_image.csv
   # Store relation
+{% for store in stores %}
   - data_entity: product-measurement-sales-unit-store
-    source: data/import/common/DE/product_measurement_sales_unit_store.csv
-  - data_entity: product-measurement-sales-unit-store
-    source: data/import/common/AT/product_measurement_sales_unit_store.csv
-
+    source: data/import/common/{{ store.storeName }}/product_measurement_sales_unit_store.csv
+{% endfor %}
 
 #4. Merchandising Setup import
   - data_entity: discount
@@ -154,10 +151,10 @@ actions:
     source: data/import/common/common/product_search_attribute_map.csv
   - data_entity: product-search-attribute
     source: data/import/common/common/product_search_attribute.csv
+{% for store in stores %}
   - data_entity: discount-amount
-    source: data/import/common/DE/discount_amount.csv
-  - data_entity: discount-amount
-    source: data/import/common/AT/discount_amount.csv
+    source: data/import/common/{{ store.storeName }}/discount_amount.csv
+{% endfor %}
   - data_entity: product-discontinued
     source: data/import/common/common/product_discontinued.csv
   - data_entity: product-alternative
@@ -165,19 +162,18 @@ actions:
   - data_entity: product-quantity
     source: data/import/common/common/product_quantity.csv
   # Store relation
+{% for store in stores %}
   - data_entity: discount-store
-    source: data/import/common/DE/discount_store.csv
-  - data_entity: discount-store
-    source: data/import/common/AT/discount_store.csv
+    source: data/import/common/{{ store.storeName }}/discount_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: product-relation-store
-    source: data/import/common/DE/product_relation_store.csv
-  - data_entity: product-relation-store
-    source: data/import/common/AT/product_relation_store.csv
+    source: data/import/common/{{ store.storeName }}/product_relation_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: product-label-store
-    source: data/import/common/DE/product_label_store.csv
-  - data_entity: product-label-store
-    source: data/import/common/AT/product_label_store.csv
-
+    source: data/import/common/{{ store.storeName }}/product_label_store.csv
+{% endfor %}
 
 #5. Content Management Setup import
   - data_entity: navigation
@@ -203,14 +199,14 @@ actions:
   - data_entity: cms-slot-block
     source: data/import/common/common/cms_slot_block.csv
   # Store relation
+{% for store in stores %}
   - data_entity: cms-page-store
-    source: data/import/common/DE/cms_page_store.csv
-  - data_entity: cms-page-store
-    source: data/import/common/AT/cms_page_store.csv
+    source: data/import/common/{{ store.storeName }}/cms_page_store.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: cms-block-store
-    source: data/import/common/DE/cms_block_store.csv
-  - data_entity: cms-block-store
-    source: data/import/common/AT/cms_block_store.csv
+    source: data/import/common/{{ store.storeName }}/cms_block_store.csv
+{% endfor %}
 
 #6. Navigation Setup import
   - data_entity: navigation-node
@@ -244,22 +240,22 @@ actions:
     source: data/import/common/common/company_user_on_behalf.csv
   - data_entity: merchant
     source : data/import/common/common/merchant.csv
+{% for store in stores %}
   - data_entity: merchant-store
-    source: data/import/common/AT/merchant_store.csv
-  - data_entity: merchant-store
-    source: data/import/common/DE/merchant_store.csv
+    source: data/import/common/{{ store.storeName }}/merchant_store.csv
+{% endfor %}
   - data_entity: merchant-relationship
     source : data/import/common/common/merchant_relationship.csv
   - data_entity: merchant-relationship-product-list
     source : data/import/common/common/merchant_relation_to_product_list.csv
   - data_entity: merchant-relationship-sales-order-threshold
-    source: data/import/common/DE/sales_order_threshold_per_merchant_relationship.csv
-  - data_entity: merchant-relationship-sales-order-threshold
-    source: data/import/common/AT/sales_order_threshold_per_merchant_relationship.csv
+{% for store in stores %}
+    source: data/import/common/{{ store.storeName }}/sales_order_threshold_per_merchant_relationship.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: product-price-merchant-relationship
-    source: data/import/common/DE/price_product_merchant_relationship.csv
-  - data_entity: product-price-merchant-relationship
-    source: data/import/common/AT/price_product_merchant_relationship.csv
+    source: data/import/common/{{ store.storeName }}/price_product_merchant_relationship.csv
+{% endfor %}
   - data_entity: shopping-list
     source: data/import/common/common/shopping_list.csv
   - data_entity: shopping-list-item
@@ -268,14 +264,14 @@ actions:
     source: data/import/common/common/shopping_list_company_user.csv
   - data_entity: shopping-list-company-business-unit
     source: data/import/common/common/shopping_list_company_business_unit.csv
+{% for store in stores %}
   - data_entity: multi-cart
-    source: data/import/common/DE/multi_cart.csv
-  - data_entity: multi-cart
-    source: data/import/common/AT/multi_cart.csv
+    source: data/import/common/{{ store.storeName }}/multi_cart.csv
+{% endfor %}
+{% for store in stores %}
   - data_entity: shared-cart
-    source: data/import/common/DE/shared_cart.csv
-  - data_entity: shared-cart
-    source: data/import/common/AT/shared_cart.csv
+    source: data/import/common/{{ store.storeName }}/shared_cart.csv
+{% endfor %}
   - data_entity: quote-request
     source: data/import/common/common/quote_request.csv
   - data_entity: quote-request-version
@@ -283,9 +279,9 @@ actions:
 
 
 #7. Miscellaneous Setup import
+{% for store in stores %}
   - data_entity: comment
-    source: data/import/common/DE/comment.csv
-  - data_entity: comment
-    source: data/import/common/AT/comment.csv
+    source: data/import/common/{{ store.storeName }}/comment.csv
+{% endfor %}
   - data_entity: mime-type
     source: data/import/common/common/mime_type.csv

@@ -27,6 +27,8 @@ class createStoreCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->storeCreator->createDeployFile();
+        $this->storeCreator->createDemodata();
+        $this->storeCreator->createInstallFiles();
 
         // ... put here the code to create the user
 
